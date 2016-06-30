@@ -33,6 +33,8 @@ window.onload = function () {
     if (req.readyState === XMLHttpRequest.DONE) {
       var data = JSON.parse(req.response)
       window.reddit_feed = data;
+      //______
+      startProcess();
     }
   }
   var time = document.querySelectorAll('.time')
@@ -41,3 +43,44 @@ window.onload = function () {
     time[i].innerHTML = moment.unix(unixTime);
   }
 }
+//All Custom Code in here:
+function startProcess(){
+for (i = 0; i < window.reddit_feed.data.length; i++){
+  var currentArticle = window.reddit_feed.data[i];
+  console.log(currentArticle.author);
+
+//create html elements in memory
+  var container = document.createElement("div");
+  container.className = "col-sm-12 col-md-4";
+
+  var post = document.createElement('div');
+  var title = document.createElement("div");
+  post.className = "post";
+  container.appendChild(post);
+
+  var thumbnail = document.createElement('div');
+  container.appendChild(thumbnail);
+
+  var link = document.createElement("a");
+  link.href = "javascript.void('0')";
+  container.appendChild(link);
+
+  var author = document.createElement('div');
+  //assign elements a value:
+  title.innerHTML = currentArticle.title;
+  link.innerHTML = currentArticle.link;
+  //nest elements inside each other:
+
+  container.className = "col-sm-4 col-md-10";
+  author.className = "col-sm-5 col-md-9";
+  var post = document.createElement('div');
+  container.appendChild(title);
+  container.appendChild(thumbnail);
+
+  document.getElementById("main").appendChild(container);
+
+  }
+}
+
+
+
